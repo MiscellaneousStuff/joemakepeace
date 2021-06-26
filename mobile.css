@@ -1,29 +1,11 @@
 @media only screen and (max-width: 350px) {
-	.buttons {
-		flex-direction: column;
-	}
-	.buttons .button {
-		margin-bottom: 1rem;
-	}
+	
 }
 
 @media only screen and (max-width: 600px) {
-	.top {
-		margin-top: 0;
-		padding: 1.5rem;
-	}
-	.desc {
-		padding: 1.5rem;
-	}
+	
 }
 
 @media only screen and (min-width: 601px) {
-	.top {
-		margin-left: 2rem;
-		margin-right: 2rem;
-	}
-	.desc {
-		margin-left: 2rem;
-		margin-right: 2rem;
-	}
+	
 }
