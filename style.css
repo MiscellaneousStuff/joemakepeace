@@ -93,6 +93,7 @@ a {
 
 /* Links Section */
 
+/*
 .links:before {
 	content: '';
 	width: 1px;
@@ -104,6 +105,7 @@ a {
 	left: calc(50%);
 	top: -2rem;
 }
+*/
 
 .links {
 	display: flex;
