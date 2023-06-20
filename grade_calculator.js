@@ -44,9 +44,9 @@ const discountedMean = (marks, credits) => {
 
 function calculateGrades() {
     const getMarks = (id, cls) => Array.from(document.querySelector(`#${id}`).querySelectorAll(`.${cls}`))
-        .map(input => Number(input.value));
+        .map(input => Math.round(Number(input.value)));
     const getCredits = (id, cls) => Array.from(document.querySelector(`#${id}`).querySelectorAll(`.${cls}`))
-        .map(input => Number(input.placeholder));
+        .map(input => Math.round(Number(input.placeholder)));
 
     const level5Marks = getMarks('level5', "mark");
     const level5Credits = getCredits('level5', "credit");
