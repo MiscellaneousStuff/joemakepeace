@@ -56,11 +56,11 @@ function calculateGrades() {
     const level7Credits = getCredits('level7', "credit");
     
     console.log("lvl5")
-    const level5DiscountedMean = Math.round(discountedMean(level5Marks, level5Credits));
+    const level5DiscountedMean = Math.round(discountedMean(level5Marks, level5Credits) * 100) / 100.0;
     console.log("lvl6")
-    const level6DiscountedMean = Math.round(discountedMean(level6Marks, level6Credits));
+    const level6DiscountedMean = Math.round(discountedMean(level6Marks, level6Credits) * 100) / 100.0;
     console.log("lvl7")
-    const level7DiscountedMean = Math.round(discountedMean(level7Marks, level7Credits));
+    const level7DiscountedMean = Math.round(discountedMean(level7Marks, level7Credits) * 100) / 100.0;
 
     console.log("level5DiscountedMean, level6DiscountedMean, level7DiscountedMean:", level5DiscountedMean, level6DiscountedMean, level7DiscountedMean);
     const weightedMean5050 = (level6DiscountedMean * 0.5 + level7DiscountedMean * 0.5) * 100;
