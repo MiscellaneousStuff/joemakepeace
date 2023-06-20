@@ -1,16 +1,4 @@
- window.addEventListener("DOMContentLoaded", loadMarksFromLocalStorage);
-
-function calculateWeightedMean(marks, credits) {
-    let totalWeightedMarks = 0;
-    let totalCredits = 0;
-    
-    for (let i = 0; i < marks.length; i++) {
-        totalWeightedMarks += marks[i] * credits[i];
-        totalCredits += credits[i];
-    }
-    
-    return totalWeightedMarks / totalCredits;
-}
+window.addEventListener("DOMContentLoaded", loadMarksFromLocalStorage);
 
 function calculateGrade(weightedMean) {
     if (weightedMean >= 70) {
@@ -23,6 +11,36 @@ function calculateGrade(weightedMean) {
         return "Fail";
     }
 }
+
+const discountedMean = (marks, credits) => {
+    let lowestMark = 101;
+    let lowestCredit = 101;
+
+    let weightedSum = 0;
+    let creditSum = 0;
+    
+    for (let i=0; i<marks.length; i++) {
+        const mark   = marks[i];
+        const credit = credits[i];
+
+        weightedSum += (mark / 100) * credit;
+        creditSum += credit;
+
+        if (mark < lowestMark && credit <= 20) {
+            lowestMark = mark;
+            lowestCredit = credit;
+        }
+    }
+
+    console.log("weightedSum, creditSum:", weightedSum, creditSum, weightedSum/creditSum)
+    if (!(lowestMark == 101 && lowestCredit == 101)) {
+        creditSum -= lowestCredit;
+        weightedSum -= (lowestMark / 100) * lowestCredit;
+    }
+    console.log("weightedSum, creditSum:", weightedSum, creditSum, weightedSum/creditSum)
+
+    return weightedSum / creditSum;
+};
 
 function calculateGrades() {
     const getMarks = (id, cls) => Array.from(document.querySelector(`#${id}`).querySelectorAll(`.${cls}`))
@@ -37,20 +55,19 @@ function calculateGrades() {
     const level7Marks = getMarks('level7', "mark");
     const level7Credits = getCredits('level7', "credit");
     
-    console.log(level5Marks,
-        level5Credits,
-        level6Marks,
-        level6Credits,
-        level7Marks,
-        level7Credits,)
+    console.log("lvl5")
+    const level5DiscountedMean = discountedMean(level5Marks, level5Credits);
+    console.log("lvl6")
+    const level6DiscountedMean = discountedMean(level6Marks, level6Credits);
+    console.log("lvl7")
+    const level7DiscountedMean = discountedMean(level7Marks, level7Credits);
 
-    const weightedMean5050 = calculateWeightedMean(level6Marks.concat(level7Marks), level6Credits.concat(level7Credits));
-    const weightedMean204040 = calculateWeightedMean(level5Marks.concat(level6Marks, level7Marks), level5Credits.concat(level6Credits, level7Credits));
-    
-    console.log(weightedMean5050, weightedMean204040)
+    console.log("level5DiscountedMean, level6DiscountedMean, level7DiscountedMean:", level5DiscountedMean, level6DiscountedMean, level7DiscountedMean);
+    const weightedMean5050 = (level6DiscountedMean * 0.5 + level7DiscountedMean * 0.5) * 100;
+    const weightedMean204040 = (level5DiscountedMean * 0.2 + level6DiscountedMean * 0.4 + level7DiscountedMean * 0.4) * 100;
     const finalGrade5050 = calculateGrade(weightedMean5050);
     const finalGrade204040 = calculateGrade(weightedMean204040);
-    
+
     document.getElementById('finalGrade').innerHTML = `
         Final Grade (50:50 weighting): ${finalGrade5050}, ${weightedMean5050.toFixed(2)}%<br/>
         Final Grade (20:40:40 weighting): ${finalGrade204040}, ${weightedMean204040.toFixed(2)}%
