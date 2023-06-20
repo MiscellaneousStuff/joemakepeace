@@ -44,9 +44,9 @@ const discountedMean = (marks, credits) => {
 
 function calculateGrades() {
     const getMarks = (id, cls) => Array.from(document.querySelector(`#${id}`).querySelectorAll(`.${cls}`))
-        .map(input => Math.round(Number(input.value)));
+        .map(input => Number(input.value));
     const getCredits = (id, cls) => Array.from(document.querySelector(`#${id}`).querySelectorAll(`.${cls}`))
-        .map(input => Math.round(Number(input.placeholder)));
+        .map(input => Number(input.placeholder));
 
     const level5Marks = getMarks('level5', "mark");
     const level5Credits = getCredits('level5', "credit");
@@ -56,11 +56,11 @@ function calculateGrades() {
     const level7Credits = getCredits('level7', "credit");
     
     console.log("lvl5")
-    const level5DiscountedMean = discountedMean(level5Marks, level5Credits);
+    const level5DiscountedMean = Math.round(discountedMean(level5Marks, level5Credits));
     console.log("lvl6")
-    const level6DiscountedMean = discountedMean(level6Marks, level6Credits);
+    const level6DiscountedMean = Math.round(discountedMean(level6Marks, level6Credits));
     console.log("lvl7")
-    const level7DiscountedMean = discountedMean(level7Marks, level7Credits);
+    const level7DiscountedMean = Math.round(discountedMean(level7Marks, level7Credits));
 
     console.log("level5DiscountedMean, level6DiscountedMean, level7DiscountedMean:", level5DiscountedMean, level6DiscountedMean, level7DiscountedMean);
     const weightedMean5050 = (level6DiscountedMean * 0.5 + level7DiscountedMean * 0.5) * 100;
