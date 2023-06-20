@@ -47,6 +47,7 @@ function calculateGrades() {
     const weightedMean5050 = calculateWeightedMean(level6Marks.concat(level7Marks), level6Credits.concat(level7Credits));
     const weightedMean204040 = calculateWeightedMean(level5Marks.concat(level6Marks, level7Marks), level5Credits.concat(level6Credits, level7Credits));
     
+    console.log(weightedMean5050, weightedMean204040)
     const finalGrade5050 = calculateGrade(weightedMean5050);
     const finalGrade204040 = calculateGrade(weightedMean204040);
     
